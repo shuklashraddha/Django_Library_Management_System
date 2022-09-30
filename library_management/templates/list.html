@@ -1,0 +1,67 @@
+   <!DOCTYPE html>
+    {% load static %}
+    <html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <body>
+        {% include 'navbar.html' %}
+        <br><br>
+        <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Admin Login</h1>
+        <br><br>
+    <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">*** Book Details ***</h1>
+    
+
+    <!-- Search section  -->
+    <div class="center-form" style="display: flex; justify-content: center;">
+        <form action="{% url 'Book-list' %}" method="GET" style="width: 500px;">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search by Book name or author" aria-label="" aria-describedby="basic-addon1" style="margin-right: 10px;"
+              name="search_query" value="{{ search_query }}"/>
+    
+              <input class="btn btn-success" type="submit" value="Search"/>
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Bookname</th>
+                <th scope="col">Author</th>
+                <th scope="col">Describe</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in Books %}
+                <tr>
+                    <th scope="row">
+                        <img style="height: 100px; width: auto;" src="{{ b.imageURL }}" class="card-img-top" alt="...">
+                    </th>
+                    <th scope="row">{{ b.Bookname }}</th>
+                    <td>{{ b.Author }}</td>
+                    <td>{{ b.Describe }}</td>
+                    <td>
+                        <a style="margin-right: 30px;" href="{% url 'edit' b.id %}">Edit</a>
+                        <a href="{% url 'delete' b.id %}">Remove</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{% url 'create' %}"><button type="button" class="btn btn-primary">Add New book</button></a>
+        
+    </div>
+</body>
+</html>
